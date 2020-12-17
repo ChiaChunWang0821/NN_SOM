@@ -7,7 +7,7 @@ public class NeuralNetworkTest{
 
     private static void testSOM(){
         NeuralNetworkJFrame neuralNetworkJFrame = new NeuralNetworkJFrame();
-//        MultilayerPerceptron multilayerPerceptron = new MultilayerPerceptron();
+        SOM som = new SOM();
 
         OnNeuralNetworkCallback onNeuralNetworkCallback = new OnNeuralNetworkCallback() {
             DataSet set = null;
@@ -15,20 +15,20 @@ public class NeuralNetworkTest{
             @Override
             public void dataReadyCallback(DataSet dataSet) {
                 set = dataSet;
-//                multilayerPerceptron.setDataSet((OnNeuralNetworkCallback)this, dataSet);
+                som.setDataSet((OnNeuralNetworkCallback)this, dataSet);
             }
 
             @Override
             public void showResultCallback() {
                 if (set != null){
-//                    multilayerPerceptron.setDataSet((OnNeuralNetworkCallback)this, set);
-//                    multilayerPerceptron.start((OnNeuralNetworkCallback)this, set);
+                    som.setDataSet((OnNeuralNetworkCallback)this, set);
+                    som.start((OnNeuralNetworkCallback)this, set);
                 }
             }
 
             @Override
             public void getValueCallback(int type, String string) {
-//                multilayerPerceptron.setValue(type, string);
+                som.setValue(type, string);
             }
 
             @Override
