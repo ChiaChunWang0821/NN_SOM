@@ -9,23 +9,6 @@ import java.util.ArrayList;
 
 public class NeuralNetworkJFrame {
 
-    private final int EACH_LAYER_OF_NEURONS = 1;
-    private final int MAX_LEARNING_CYCLE = 2;
-    private final int LEARNING_RATE = 3;
-    private final int MOMENTUM = 4;
-    private final int THRESHOLD = 5;
-    private final int ERROR_TOLERANCE = 6;
-
-    private final static int DIMENSION = -1;
-    private final static int TRAINING_SET = -2;
-    private final static int TESTING_SET = -3;
-    private final static int WEIGHT = -5;
-    private final static int TRAINING_RECOGNITION_RATE = -6;
-    private final static int TESTING_RECOGNITION_RATE = -7;
-
-    private final static int REGRESSION = 11;
-    private final static int CLASSIFICATION = 12;
-
     private DataSet dataSet;
 
     private int windowWidth;
@@ -51,35 +34,22 @@ public class NeuralNetworkJFrame {
 
     private JLabel filePathLabel;
 
-    private JLabel eachLayerOfNeuronsLabel;
-    private JLabel maxLearningCycleLabel;
-    private JLabel learningRateLabel;
-    private JLabel momentumLabel;
-    private JLabel thresholdLabel;
-    private JLabel errorToleranceLabel;
+    private JLabel numOfNeuronRowLabel;
+    private JLabel numOfNeuronColumnLabel;
 
-    private JTextField eachLayerOfNeuronsTextField;
-    private JTextField maxLearningCycleTextField;
-    private JTextField learningRateTextField;
-    private JTextField momentumTextField;
-    private JTextField thresholdTextField;
-    private JTextField errorToleranceTextField;
-
-    private JLabel normalizedDLabel;
-    private JRadioButton regressionRadioButton;
-    private JRadioButton classificationRadioButton;
+    private JTextField numOfNeuronRowTextField;
+    private JTextField numOfNeuronColumnTextField;
 
     private JLabel dimensionLabel;
     private JLabel setLabel;
     private JLabel weightLabel;
-    private JLabel trainingRateLabel;
     private JLabel testingRateLabel;
 
     private JLabel dimensionValueLabel;
     private JLabel setValueLabel;
     private JLabel weightValueLabel;
-    private JLabel trainingRateValueLabel;
     private JLabel testingRateValueLabel;
+
 
     public NeuralNetworkJFrame(){
         windowWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
@@ -94,7 +64,7 @@ public class NeuralNetworkJFrame {
     }
 
     protected void actionListener(OnNeuralNetworkCallback onNeuralNetworkCallback){
-        eachLayerOfNeuronsTextField.getDocument().addDocumentListener(new DocumentListener() {
+        numOfNeuronRowTextField.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
                 changed();
@@ -112,16 +82,16 @@ public class NeuralNetworkJFrame {
 
             private void changed(){
                 try {
-                    eachLayerOfNeuronsTextField.setBackground(Color.white);
-                    onNeuralNetworkCallback.getValueCallback(EACH_LAYER_OF_NEURONS, eachLayerOfNeuronsTextField.getText());
+                    numOfNeuronRowTextField.setBackground(Color.white);
+                    onNeuralNetworkCallback.getValueCallback(NeuralNetwork.NUMBER_OF_NEURONS_ROW, numOfNeuronRowTextField.getText());
                 } catch (NumberFormatException e){
-                    eachLayerOfNeuronsTextField.setBackground(Color.pink);
-                    onNeuralNetworkCallback.getValueCallback(EACH_LAYER_OF_NEURONS, "2,1");
+                    numOfNeuronRowTextField.setBackground(Color.pink);
+                    onNeuralNetworkCallback.getValueCallback(NeuralNetwork.NUMBER_OF_NEURONS_ROW, "3");
                 }
             }
         });
 
-        maxLearningCycleTextField.getDocument().addDocumentListener(new DocumentListener() {
+        numOfNeuronColumnTextField.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
                 changed();
@@ -139,126 +109,14 @@ public class NeuralNetworkJFrame {
 
             private void changed(){
                 try {
-                    maxLearningCycleTextField.setBackground(Color.white);
-                    onNeuralNetworkCallback.getValueCallback(MAX_LEARNING_CYCLE, maxLearningCycleTextField.getText());
+                    numOfNeuronColumnTextField.setBackground(Color.white);
+                    onNeuralNetworkCallback.getValueCallback(NeuralNetwork.NUMBER_OF_NEURONS_COLUMN, numOfNeuronColumnTextField.getText());
                 } catch (NumberFormatException e){
-                    maxLearningCycleTextField.setBackground(Color.pink);
-                    onNeuralNetworkCallback.getValueCallback(MAX_LEARNING_CYCLE, "1000");
+                    numOfNeuronColumnTextField.setBackground(Color.pink);
+                    onNeuralNetworkCallback.getValueCallback(NeuralNetwork.NUMBER_OF_NEURONS_COLUMN, "3");
                 }
             }
         });
-
-        learningRateTextField.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                changed();
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                changed();
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                changed();
-            }
-
-            private void changed(){
-                try {
-                    learningRateTextField.setBackground(Color.white);
-                    onNeuralNetworkCallback.getValueCallback(LEARNING_RATE, learningRateTextField.getText());
-                } catch (NumberFormatException e){
-                    learningRateTextField.setBackground(Color.pink);
-                    onNeuralNetworkCallback.getValueCallback(LEARNING_RATE, "0.5");
-                }
-            }
-        });
-
-        momentumTextField.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                changed();
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                changed();
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                changed();
-            }
-
-            private void changed(){
-                try {
-                    momentumTextField.setBackground(Color.white);
-                    onNeuralNetworkCallback.getValueCallback(MOMENTUM, momentumTextField.getText());
-                } catch (NumberFormatException e){
-                    momentumTextField.setBackground(Color.pink);
-                    onNeuralNetworkCallback.getValueCallback(MOMENTUM, "0.1");
-                }
-            }
-        });
-
-        thresholdTextField.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                changed();
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                changed();
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                changed();
-            }
-
-            private void changed(){
-                try {
-                    thresholdTextField.setBackground(Color.white);
-                    onNeuralNetworkCallback.getValueCallback(THRESHOLD, thresholdTextField.getText());
-                } catch (NumberFormatException e){
-                    thresholdTextField.setBackground(Color.pink);
-                    onNeuralNetworkCallback.getValueCallback(THRESHOLD, "0.5");
-                }
-            }
-        });
-
-        errorToleranceTextField.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                changeLearningRate();
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                changeLearningRate();
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                changeLearningRate();
-            }
-
-            private void changeLearningRate(){
-                try {
-                    errorToleranceTextField.setBackground(Color.white);
-                    onNeuralNetworkCallback.getValueCallback(ERROR_TOLERANCE, errorToleranceTextField.getText());
-                } catch (NumberFormatException e){
-                    errorToleranceTextField.setBackground(Color.pink);
-                    onNeuralNetworkCallback.getValueCallback(ERROR_TOLERANCE, "0.1");
-                }
-            }
-        });
-
-        regressionRadioButton.addActionListener(actionEvent -> onNeuralNetworkCallback.getValueCallback(REGRESSION, null));
-
-        classificationRadioButton.addActionListener(actionEvent -> onNeuralNetworkCallback.getValueCallback(CLASSIFICATION, null));
 
         loadFileButton.addActionListener(e -> {
             JFileChooser jFileChooser = new JFileChooser();
@@ -315,34 +173,29 @@ public class NeuralNetworkJFrame {
 
     protected void updateValue(int type, String value){
         switch (type){
-            case DIMENSION:
+            case NeuralNetwork.DIMENSION:
                 dimensionValueLabel.setText(value);
                 break;
-            case TRAINING_SET:
+            case NeuralNetwork.TRAINING_SET:
                 String s0 = setValueLabel.getText();
                 String[] ss0 = s0.split("/");
 
                 setValueLabel.setText(value + "/ " + ss0[1]);
                 break;
-            case TESTING_SET:
+            case NeuralNetwork.TESTING_SET:
                 String s1 = setValueLabel.getText();
                 String[] ss1 = s1.split("/");
 
                 setValueLabel.setText(ss1[0] + "/ " + value);
                 break;
-            case WEIGHT:
+            case NeuralNetwork.WEIGHT:
                 weightValueLabel.setText(value);
-
                 String[] s = value.split(",");
                 for(int i = 0; i < s.length; i++){
                     weightPoints.add(Double.parseDouble(s[i]));
                 }
-
                 break;
-            case TRAINING_RECOGNITION_RATE:
-                trainingRateValueLabel.setText(value + "%");
-                break;
-            case TESTING_RECOGNITION_RATE:
+            case NeuralNetwork.TESTING_RECOGNITION_RATE:
                 testingRateValueLabel.setText(value + "%");
                 break;
         }
